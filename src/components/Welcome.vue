@@ -60,6 +60,7 @@ export default {
       },
       userxishi: {},
       uname: '',
+      mizi: '',
       quanxian: '',
       // 图片
       tupian: [
@@ -80,6 +81,12 @@ export default {
   },
   created () {
     this.fuzhi()
+
+    // 废弃方法,这个应该在登录就调用方法把名字放进去session里然后再在这个页面获取，而不是用现在这种方法，要改的太多所以不想改了:)
+
+    // const that = this
+    // setTimeout(function () { that.saceNavstate() }, 50)
+    // setTimeout(function () { that.saceNavstate2() }, 100)
   },
   methods: {
     async fuzhi () {
@@ -120,6 +127,18 @@ export default {
         this.fanfuzhuan = 'fanfuzhuan'
       }
     }
+
+    // 废弃方法别动了
+
+    // // 保存登录信息。在session中
+    // saceNavstate () {
+    //   var mizi = this.uname
+    //   window.sessionStorage.setItem('mizi', mizi)
+    // },
+    // // 拿到session中的名字
+    // saceNavstate2 () {
+    //   this.mizi = window.sessionStorage.getItem('mizi')
+    // }
   }
 }
 </script>
