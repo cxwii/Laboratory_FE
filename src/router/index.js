@@ -7,7 +7,12 @@ import riqi from '@/components/zhaxiang/riqi'
 import zuozhe from '@/components/zhaxiang/zuozhe'
 import Welcome from '@/components/Welcome'
 import Userlist from '@/components/Userlist'
+import quanxian from '@/components/quanxian'
 import Qicailist from '@/components/Qicailist'
+import qicaijieyue from '@/components/qicaijieyue'
+import jieyuelist from '@/components/jieyuelist'
+import jhsj from '@/components/jhsj'
+import htsj from '@/components/htsj'
 
 Vue.use(VueRouter)
 
@@ -24,7 +29,12 @@ const routes = [
     children: [
       { path: '/welcome', component: Welcome },
       { path: '/userlist', component: Userlist },
-      { path: '/qicailist', component: Qicailist }
+      { path: '/quanxian', component: quanxian },
+      { path: '/qicailist', component: Qicailist },
+      { path: '/qicaijieyue', component: qicaijieyue },
+      { path: '/jieyuelist', component: jieyuelist },
+      { path: '/jhsj', component: jhsj },
+      { path: '/htsj', component: htsj }
     ]
   }
 ]

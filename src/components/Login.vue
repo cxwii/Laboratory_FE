@@ -70,7 +70,7 @@ export default {
       form: 'form',
       zhuan: '',
       loginForm: {
-        username: 'admin',
+        username: 'admin ',
         password: '123456'
       },
       // 表单验证规则
@@ -97,7 +97,13 @@ export default {
         ]
       },
 
-      bianhuacolor: 'qiuti'
+      bianhuacolor: 'qiuti',
+
+      // 权限
+      quanxian: ''
+
+      // 存放传递到session的值
+      // sesszhi: {}
     }
   },
 
@@ -110,18 +116,52 @@ export default {
     //   console.log('输出 :>> ', this.loginForm)
     // },
     async login () {
+      // 判断登录
       const { data: res } = await this.$http.post('queryUser', this.loginForm)
       if (this.loginForm.username === '' && this.loginForm.password === '') {
         this.$message.error('账号或密码为空')
       } else {
         if (res.status === 200) {
           this.$message.success('登录成功！')
-          this.$router.push({ path: '/home', query: { name: JSON.stringify(this.loginForm) } })
+          this.$router.push({ path: '/home' })
         } else {
           this.$message.error('账号或密码错误！')
           this.resetLoginForm()
         }
       }
+
+      // 赋值给session给首页展示用
+      const { data: res2 } = await this.$http.post(
+        'queryUserListjiqu',
+        this.loginForm
+      )
+      // this.sesszhi = res2.data.rows[0].uid
+      // console.log('输出 :>> ', this.sesszhi)
+      // console.log('res2 :>> ', res2.data.rows[0].uid)
+
+      // uid赋值，给借出用
+      var uid = res2.data.rows[0].uid
+      window.sessionStorage.setItem('uid', uid)
+
+      // 名字赋值
+      var mizi = res2.data.rows[0].uname
+      window.sessionStorage.setItem('mizi', mizi)
+
+      // 权限判断并赋值
+      if (res2.data.rows[0].uid === '0') {
+        this.quanxian = '普通用户'
+      }
+      if (res2.data.rows[0].uid === '1') {
+        this.quanxian = '管理员'
+      }
+      if (res2.data.rows[0].uid === '2') {
+        this.quanxian = '超级管理员'
+      }
+
+      var quan = this.quanxian
+      window.sessionStorage.setItem('quan', quan)
+
+      location.reload()
     },
 
     resetLoginForm () {
@@ -135,15 +175,15 @@ export default {
     },
 
     dingzhi () {
-      console.log('dingzhi')
+      // console.log('dingzhi')
       this.bianhuacolor = 'qiuti2'
     },
     kaishi () {
-      console.log('kaishi')
+      // console.log('kaishi')
       this.bianhuacolor = 'qiuti'
     },
     ceshi () {
-      console.log('父组件方法 :>> ')
+      // console.log('父组件方法 :>> ')
     }
   }
 }
